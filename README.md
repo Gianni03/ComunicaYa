@@ -50,8 +50,3 @@ ComunicaYa is a personal project to build a low-cost Augmentative and Alternativ
 
 ## Contacto / Contact
 - Email: giannipasquinelli@gmail.com
-
-## Support / Apoyar
-Este proyecto forma parte de mi aprendizaje y mejora profesional. Si deseas apoyarme, puedes añadir un enlace a Buy Me a Coffee, Patreon u otra plataforma aquí.
-
----
