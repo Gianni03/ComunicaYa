@@ -25,41 +25,8 @@
             }
         }
     </script>
-    <style>
-        /* Estilos específicos para la accesibilidad y el tacto */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background);
-        }
-        .touch-button {
-            /* Área de toque grande (Touch Target) */
-            min-height: 120px; 
-            min-width: 120px;
-            transition: all 0.1s ease-in-out;
-            box-shadow: 0 5px 0px rgba(0, 0, 0, 0.2);
-            border: 4px solid var(--text-dark);
-            font-size: 1.5rem; /* Texto muy grande */
-            font-weight: 700;
-        }
-        .touch-button:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0px rgba(0, 0, 0, 0.4);
-        }
-        .screen {
-            display: none;
-            height: calc(100vh - 80px); 
-            overflow-y: auto;
-        }
-        .active-screen {
-            display: flex;
-        }
-        .picto-icon {
-            /* Íconos grandes y claros */
-            height: 50px;
-            width: 50px;
-            margin-bottom: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <script async defer src="./index.js"></script>
 </head>
 <body class="bg-background text-text-dark min-h-screen flex flex-col">
 
@@ -182,56 +149,5 @@
             <span class="text-xs mt-1">Necesidades</span>
         </button>
     </footer>
-
-    <script>
-        const ttsOutput = document.getElementById('tts-output');
-        const synth = window.speechSynthesis;
-        let isSpeaking = false;
-
-        // Función de navegación entre pantallas
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active-screen');
-            });
-            document.getElementById(screenId).classList.add('active-screen');
-        }
-
-        // Función de Texto a Voz (TTS)
-        function speakPhrase(text) {
-            if (isSpeaking) {
-                synth.cancel();
-            }
-
-            // Muestra la frase que se va a decir en el encabezado
-            ttsOutput.textContent = `Hablando: "${text}"`;
-
-            const utterance = new SpeechSynthesisUtterance(text);
-            // Intentar usar una voz en español si está disponible
-            const spanishVoice = synth.getVoices().find(voice => voice.lang.startsWith('es-'));
-            if (spanishVoice) {
-                utterance.voice = spanishVoice;
-            }
-            utterance.rate = 1; // Velocidad de habla normal
-            utterance.pitch = 1; // Tono normal
-            
-            utterance.onstart = () => { isSpeaking = true; };
-            utterance.onend = () => { isSpeaking = false; ttsOutput.textContent = ''; };
-            utterance.onerror = (e) => { 
-                isSpeaking = false; 
-                ttsOutput.textContent = 'Error de voz: ' + e.error; 
-                console.error('SpeechSynthesis Utterance Error', e);
-            };
-
-            synth.speak(utterance);
-        }
-
-        // Inicializar la pantalla
-        window.onload = () => {
-            if (synth.onvoiceschanged !== undefined) {
-                synth.onvoiceschanged = () => {};
-            }
-            console.log('App ComunicaYa cargada y lista.');
-        };
-    </script>
 </body>
 </html>
