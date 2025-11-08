@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComunicaYa - Bocetos de Apoyo Comunicacional Simple</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    // Colores simples y de alto contraste para un usuario infantil
+                    colors: {
+                        'primary': '#00BFFF', // Azul claro y amigable
+                        'secondary': '#FF6347', // Rojo coral para atención/negación
+                        'background': '#F0F0F0', // Fondo muy claro
+                        'text-dark': '#1F2937', // Texto oscuro
+                        'accent': '#FFD700', // Amarillo brillante
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos específicos para la accesibilidad y el tacto */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+        }
+        .touch-button {
+            /* Área de toque grande (Touch Target) */
+            min-height: 120px; 
+            min-width: 120px;
+            transition: all 0.1s ease-in-out;
+            box-shadow: 0 5px 0px rgba(0, 0, 0, 0.2);
+            border: 4px solid var(--text-dark);
+            font-size: 1.5rem; /* Texto muy grande */
+            font-weight: 700;
+        }
+        .touch-button:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0px rgba(0, 0, 0, 0.4);
+        }
+        .screen {
+            display: none;
+            height: calc(100vh - 80px); 
+            overflow-y: auto;
+        }
+        .active-screen {
+            display: flex;
+        }
+        .picto-icon {
+            /* Íconos grandes y claros */
+            height: 50px;
+            width: 50px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body class="bg-background text-text-dark min-h-screen flex flex-col">
+
+    <!-- Encabezado de la Aplicación -->
+    <header class="p-4 bg-primary text-center shadow-lg sticky top-0 z-10">
+        <h1 class="text-3xl font-extrabold text-text-dark">ComunicaYa</h1>
+        <p id="tts-output" class="text-base italic mt-1 h-6 text-text-dark"></p>
+    </header>
+
+    <!-- Contenedor Principal de Pantallas -->
+    <main class="flex-grow p-4">
+
+        <!-- PANTALLA 1: Deseos Rápidos (Quiero/No Quiero) -->
+        <div id="screen-home" class="screen active-screen flex-col">
+            <h2 class="text-2xl font-bold mb-6 text-text-dark text-center">Deseos Rápidos</h2>
+
+            <div class="grid grid-cols-2 gap-6 p-4">
+
+                <!-- Botón 1: QUIERO -->
+                <button class="touch-button bg-green-500 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Quiero esto.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    <span>QUIERO</span>
+                </button>
+
+                <!-- Botón 2: NO QUIERO -->
+                <button class="touch-button bg-secondary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('No quiero, por favor, basta.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                    <span>NO QUIERO</span>
+                </button>
+
+                <!-- Botón 3: JUGAR -->
+                <button class="touch-button bg-accent text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Quiero jugar ahora.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+                    <span>JUGAR</span>
+                </button>
+
+                <!-- Botón 4: AYUDA -->
+                <button class="touch-button bg-primary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Necesito ayuda, por favor.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6"/><path d="M12 21a9 9 0 0 0 9-9c0-3.5-2-6-4-8"/></svg>
+                    <span>AYUDA</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- PANTALLA 2: Mi Rutina y Actividades -->
+        <div id="screen-routine" class="screen flex-col">
+            <h2 class="text-2xl font-bold mb-6 text-text-dark text-center">Mi Rutina</h2>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4">
+                <!-- Rutina (actividades más comunes) -->
+                <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Es hora de comer, tengo hambre.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M15 2v4"/><path d="M9 2v4"/><line x1="4" y1="10" x2="20" y2="10"/></svg>
+                    <span>Comer</span>
+                </button>
+                <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Es hora de ir a la escuela.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15.5C4 17.43 5.57 19 7.5 19H16.5C18.43 19 20 17.43 20 15.5V5H4V15.5Z"/><path d="M12 19V22"/><path d="M8 22H16"/></svg>
+                    <span>Escuela</span>
+                </button>
+                <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Es hora de dormir, tengo sueño.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><line x1="12" y1="14" x2="12" y2="20"/></svg>
+                    <span>Dormir</span>
+                </button>
+                <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Quiero ver televisión o tablet.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M12 18V21"/><path d="M8 21h8"/></svg>
+                    <span>Ver TV</span>
+                </button>
+                <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Tengo que ir al baño.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16.5c-3 0-5.5-1.5-5.5-3.5S7 9.5 10 9.5c3 0 5.5 1.5 5.5 3.5s-2.5 3.5-5.5 3.5Z"/><path d="M20 12c-3.5 0-6.5-2-6.5-4S16.5 4 20 4c3.5 0 6.5 2 6.5 4S23.5 12 20 12Z"/></svg>
+                    <span>Baño</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- PANTALLA 3: Necesidades y Sentimientos -->
+        <div id="screen-feelings" class="screen flex-col">
+            <h2 class="text-2xl font-bold mb-6 text-text-dark text-center">Mis Necesidades</h2>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 p-4">
+
+                <!-- Sentimiento: FELIZ -->
+                <button class="touch-button bg-accent text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Estoy feliz.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    <span>Feliz</span>
+                </button>
+
+                <!-- Sentimiento: TRISTE -->
+                <button class="touch-button bg-primary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Estoy triste.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    <span>Triste</span>
+                </button>
+                
+                <!-- Necesidad: DUELE -->
+                <button class="touch-button bg-secondary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Me duele aquí.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s-4-2-4-7V8a4 4 0 0 1 4-4 4 4 0 0 1 4 4v6.5c0 5-4 7-4 7Z"/><path d="M10 13l4-4"/><path d="M14 13l-4-4"/></svg>
+                    <span>Duele</span>
+                </button>
+
+                <!-- Necesidad: SED -->
+                <button class="touch-button bg-primary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Tengo mucha sed, quiero agua.')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10c0-1.7 4-5 6-5s6 3.3 6 5c0 2-4 5-6 5s-6-3-6-5Z"/><path d="M8 22h8"/></svg>
+                    <span>Sed</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Menú de Navegación (Footer) -->
+    <footer class="sticky bottom-0 bg-text-dark border-t border-primary p-2 flex justify-around shadow-inner h-20 z-10">
+        <button class="nav-button p-2 text-center text-background flex flex-col items-center" data-target="screen-home" onclick="showScreen('screen-home')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="text-xs mt-1">Deseos</span>
+        </button>
+        <button class="nav-button p-2 text-center text-background flex flex-col items-center" data-target="screen-routine" onclick="showScreen('screen-routine')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span class="text-xs mt-1">Rutina</span>
+        </button>
+        <button class="nav-button p-2 text-center text-background flex flex-col items-center" data-target="screen-feelings" onclick="showScreen('screen-feelings')">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s-4-2-4-7V8a4 4 0 0 1 4-4 4 4 0 0 1 4 4v6.5c0 5-4 7-4 7Z"/></svg>
+            <span class="text-xs mt-1">Necesidades</span>
+        </button>
+    </footer>
+
+    <script>
+        const ttsOutput = document.getElementById('tts-output');
+        const synth = window.speechSynthesis;
+        let isSpeaking = false;
+
+        // Función de navegación entre pantallas
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active-screen');
+            });
+            document.getElementById(screenId).classList.add('active-screen');
+        }
+
+        // Función de Texto a Voz (TTS)
+        function speakPhrase(text) {
+            if (isSpeaking) {
+                synth.cancel();
+            }
+
+            // Muestra la frase que se va a decir en el encabezado
+            ttsOutput.textContent = `Hablando: "${text}"`;
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            // Intentar usar una voz en español si está disponible
+            const spanishVoice = synth.getVoices().find(voice => voice.lang.startsWith('es-'));
+            if (spanishVoice) {
+                utterance.voice = spanishVoice;
+            }
+            utterance.rate = 1; // Velocidad de habla normal
+            utterance.pitch = 1; // Tono normal
+            
+            utterance.onstart = () => { isSpeaking = true; };
+            utterance.onend = () => { isSpeaking = false; ttsOutput.textContent = ''; };
+            utterance.onerror = (e) => { 
+                isSpeaking = false; 
+                ttsOutput.textContent = 'Error de voz: ' + e.error; 
+                console.error('SpeechSynthesis Utterance Error', e);
+            };
+
+            synth.speak(utterance);
+        }
+
+        // Inicializar la pantalla
+        window.onload = () => {
+            if (synth.onvoiceschanged !== undefined) {
+                synth.onvoiceschanged = () => {};
+            }
+            console.log('App ComunicaYa cargada y lista.');
+        };
+    </script>
+</body>
+</html>
