@@ -2,7 +2,7 @@ const ttsOutput = document.getElementById('tts-output');
 const synth = window.speechSynthesis;
 let isSpeaking = false;
 
-// Función de navegación entre pantallas
+
 function showScreen(screenId) {
   document.querySelectorAll('.screen').forEach(screen => {
     screen.classList.remove('active-screen');
@@ -10,17 +10,16 @@ function showScreen(screenId) {
   document.getElementById(screenId).classList.add('active-screen');
 }
 
-// Función de Texto a Voz (TTS)
 function speakPhrase(text) {
   if (isSpeaking) {
     synth.cancel();
   }
 
-  // Muestra la frase que se va a decir en el encabezado
-  ttsOutput.textContent = `Hablando: "${text}"`;
+  
+  ttsOutput.textContent = `Hablando: "${text.toUpperCase()}"`;
 
   const utterance = new SpeechSynthesisUtterance(text);
-  // Intentar usar una voz en español si está disponible
+
   const spanishVoice = synth.getVoices().find(voice => voice.lang.startsWith('es-'));
   if (spanishVoice) {
     utterance.voice = spanishVoice;
@@ -44,5 +43,6 @@ window.onload = () => {
   if (synth.onvoiceschanged !== undefined) {
     synth.onvoiceschanged = () => { };
   }
+  ttsOutput.textContent = 'TOCA UN BOTÓN PARA HABLAR';
   console.log('App ComunicaYa cargada y lista.');
 };

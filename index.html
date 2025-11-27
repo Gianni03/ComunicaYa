@@ -30,13 +30,12 @@
 </head>
 <body class="bg-background text-text-dark min-h-screen flex flex-col">
 
-    <!-- Encabezado de la Aplicación -->
     <header class="p-4 bg-primary text-center shadow-lg sticky top-0 z-10">
         <h1 class="text-3xl font-extrabold text-text-dark">ComunicaYa</h1>
-        <p id="tts-output" class="text-base italic mt-1 h-6 text-text-dark"></p>
+        <!-- <p id="tts-output" class="text-base italic mt-1 h-6 text-text-dark"></p> -->
     </header>
 
-    <!-- Contenedor Principal de Pantallas -->
+
     <main class="flex-grow p-4">
 
         <!-- PANTALLA 1: Deseos Rápidos (Quiero/No Quiero) -->
@@ -45,27 +44,28 @@
 
             <div class="grid grid-cols-2 gap-6 p-4">
 
-                <!-- Botón 1: QUIERO -->
+                
                 <button class="touch-button bg-green-500 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Quiero esto.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    <img src="./img/querer.png" alt="quiero esto" class="h-16 w-16">
+                   
                     <span>QUIERO</span>
                 </button>
 
-                <!-- Botón 2: NO QUIERO -->
+                
                 <button class="touch-button bg-secondary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('No quiero, por favor, basta.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                    <img src="./img/no_quiero.png" alt="no quiero" class="h-16 w-16">
                     <span>NO QUIERO</span>
                 </button>
 
-                <!-- Botón 3: JUGAR -->
+                
                 <button class="touch-button bg-accent text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Quiero jugar ahora.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+                    <img src="./img/jugar.png" alt="quiero jugar" class="h-16 w-16">
                     <span>JUGAR</span>
                 </button>
 
-                <!-- Botón 4: AYUDA -->
+             
                 <button class="touch-button bg-primary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Necesito ayuda, por favor.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6"/><path d="M12 21a9 9 0 0 0 9-9c0-3.5-2-6-4-8"/></svg>
+                    <img src="./img/ayudar.png" alt="ayuda" class="h-16 w-16">
                     <span>AYUDA</span>
                 </button>
             </div>
@@ -76,25 +76,25 @@
             <h2 class="text-2xl font-bold mb-6 text-text-dark text-center">Mi Rutina</h2>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4">
-                <!-- Rutina (actividades más comunes) -->
-                <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Es hora de comer, tengo hambre.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M15 2v4"/><path d="M9 2v4"/><line x1="4" y1="10" x2="20" y2="10"/></svg>
+            
+                <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('quiero comer, tengo hambre.')">
+                    <img src="./img/comer.png" alt="tengo hambre" class="h-16 w-16">
                     <span>Comer</span>
                 </button>
                 <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Es hora de ir a la escuela.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15.5C4 17.43 5.57 19 7.5 19H16.5C18.43 19 20 17.43 20 15.5V5H4V15.5Z"/><path d="M12 19V22"/><path d="M8 22H16"/></svg>
+                    <img src="./img/escuela.png" alt="escuela" class="h-16 w-16">
                     <span>Escuela</span>
                 </button>
                 <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Es hora de dormir, tengo sueño.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/><line x1="12" y1="14" x2="12" y2="20"/></svg>
+                    <img src="./img/dormir.png" alt="dormir" class="h-16 w-16">
                     <span>Dormir</span>
                 </button>
                 <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Quiero ver televisión o tablet.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M12 18V21"/><path d="M8 21h8"/></svg>
+                    <img src="./img/tv.png" alt="ver tv" class="h-16 w-16">
                     <span>Ver TV</span>
                 </button>
                 <button class="touch-button bg-gray-400 text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Tengo que ir al baño.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16.5c-3 0-5.5-1.5-5.5-3.5S7 9.5 10 9.5c3 0 5.5 1.5 5.5 3.5s-2.5 3.5-5.5 3.5Z"/><path d="M20 12c-3.5 0-6.5-2-6.5-4S16.5 4 20 4c3.5 0 6.5 2 6.5 4S23.5 12 20 12Z"/></svg>
+                    <img src="./img/baño.png" alt="ir al baño" class="h-16 w-16">
                     <span>Baño</span>
                 </button>
             </div>
@@ -106,35 +106,40 @@
             
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 p-4">
 
-                <!-- Sentimiento: FELIZ -->
+                
                 <button class="touch-button bg-accent text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Estoy feliz.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    <img src="./img/feliz.png" alt="feliz" class="h-16 w-16">
                     <span>Feliz</span>
                 </button>
 
-                <!-- Sentimiento: TRISTE -->
+
                 <button class="touch-button bg-primary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Estoy triste.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    <img src="./img/triste.png" alt="triste" class="h-16 w-16">
                     <span>Triste</span>
                 </button>
                 
-                <!-- Necesidad: DUELE -->
+
                 <button class="touch-button bg-secondary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Me duele aquí.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s-4-2-4-7V8a4 4 0 0 1 4-4 4 4 0 0 1 4 4v6.5c0 5-4 7-4 7Z"/><path d="M10 13l4-4"/><path d="M14 13l-4-4"/></svg>
+                    <img src="./img/duele.png" alt="duele" class="h-16 w-16">
                     <span>Duele</span>
                 </button>
 
-                <!-- Necesidad: SED -->
                 <button class="touch-button bg-primary text-text-dark rounded-xl p-4 flex flex-col items-center justify-center" onclick="speakPhrase('Tengo mucha sed, quiero agua.')">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="picto-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10c0-1.7 4-5 6-5s6 3.3 6 5c0 2-4 5-6 5s-6-3-6-5Z"/><path d="M8 22h8"/></svg>
+                    <img src="./img/sed.png" alt="sed" class="h-16 w-16">
                     <span>Sed</span>
                 </button>
             </div>
         </div>
 
+         <div id="tts-output-container" class="bg-message-bg p-4 mb-6 rounded-lg border-4 border-text-dark text-center shadow-md min-h-[6rem] flex items-center justify-center">
+            <p id="tts-output" class="text-3xl font-extrabold text-text-dark italic">
+                Toca un botón para hablar
+            </p>
+        </div>
+
     </main>
 
-    <!-- Menú de Navegación (Footer) -->
+
     <footer class="sticky bottom-0 bg-text-dark border-t border-primary p-2 flex justify-around shadow-inner h-20 z-10">
         <button class="nav-button p-2 text-center text-background flex flex-col items-center" data-target="screen-home" onclick="showScreen('screen-home')">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
